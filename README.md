@@ -11,8 +11,6 @@ git config --global user.name "[firstname lastname]"
 git config --global user.email "[valid-email]"
 git config --global color.ui auto
 ```
-For adding
-
 ## Setup and initialize the first project on the shell
 ```bash
 cd /path/to/the/project
@@ -37,3 +35,31 @@ git push -u origin main
 ## TRACKING CHANGES
 
 ## SHARE & UPDATE
+
+## Passwordless authentication on Github
+Pushing code to github requires authentication. Using SSH keys allow a strong but passwordless authentication method. This steps describe on how to use this.
+Login to the terminal on the system where yo udevelop and push code to github
+```bash
+ssh-keygen -t ed25519 -C "email@domain.com"    # Generate the key and sed a strong passphrase
+
+eval `ssh-agent -s     # Use the generated key
+ssh-add ~/.ssh/id_ed25519.pub
+
+cat ~/.ssh/id_ed25519.pub     # Print the public key file and copy it to the clipboard
+```
+Open GitHub SSH creator page in the Browser [LINK](https://github.com/settings/ssh/new)
+Create a new SSH Key
+Paste the public key from the clipboard into the Key-Field on GitHub and save
+
+Check if the connection works
+```bash
+ssh -T git@github.com
+```
+Connect to the remote repository using SSH
+```bash
+git remote -v     # In case of https:// ... it needs to be changed to use SSH instead (continue)
+
+# Switch remote URLs from HTTPS to SSH type:
+use git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+
+```
