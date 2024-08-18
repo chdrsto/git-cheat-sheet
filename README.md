@@ -42,7 +42,7 @@ Login to the terminal on the system where yo udevelop and push code to github
 ```bash
 ssh-keygen -t ed25519 -C "email@domain.com"    # Generate the key and sed a strong passphrase
 
-eval `ssh-agent -s     # Use the generated key
+eval `ssh-agent -s`     # Use the generated key
 ssh-add ~/.ssh/id_ed25519.pub
 
 cat ~/.ssh/id_ed25519.pub     # Print the public key file and copy it to the clipboard
@@ -60,6 +60,6 @@ Connect to the remote repository using SSH
 git remote -v     # In case of https:// ... it needs to be changed to use SSH instead (continue)
 
 # Switch remote URLs from HTTPS to SSH type:
-use git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
 
 ```
