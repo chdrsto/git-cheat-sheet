@@ -3,19 +3,23 @@ This respository will only have a README file and describe the tasks and activit
 It is mainly based on the git-cheat-sheet PDF from the GitHub Education page [LINK](https://education.github.com/git-cheat-sheet-education.pdf)
 I'm not a developer and do not contribute a lot of code. Hence, I dont often work with git and have to use a cheat sheet to remember how things work. If it is useful for others, fine but it will never be a full comprehensive documentation for git and github.
 Its a survival sumary for git basically.
+
 ## SETUP
 ### Setup user parameter and variables used by git
 Configuring user information used across all local repositories
 ```bash
 git config --global user.name "[firstname lastname]"
-git config --global user.email "[valid-email]"
+git config --global user.email [valid-email]
 git config --global color.ui auto
+git config --global init.default branch main
+
+git config --list     # to list all parameter and variables defined
 ```
 ### Setup and initialize the first project on the shell
 ```bash
 cd /path/to/the/project
-git init
-git status
+git init     # Will initialize the repository and create all necessary reporistory files under .git
+git status     # Will display the status of the repository. It will show which files are tracked or untracked to be included using >> git add [file] << command
 git add .
 git commit -m 'create a first commit'
 git branch -M main
@@ -38,12 +42,12 @@ git status
 git add [file]     # Add a file as it is now to the next commit (stage)
 git add .     # Add all files within this and sub-directories to the next commit (stage)
 
-git reset [file]     # unstage (remove) a file from the reqpository retaining the changes in working directory
+git reset [commit]     # Sets the stage environment to a previous commits
 
 git diff     # Shows differences on what is changed but not staged
 git diff --staged     # diff of what is staged but not yet committed
 
-git commit -m "[descriptive message]"     # Commit your staged content as a new commit snapshot
+git commit -a -m "[descriptive message]"     # Add the change and commit the content as a new commit to the active branch
 ```
 
 ## BRANCH & MERGE
@@ -53,7 +57,9 @@ Once the activities are done, it needs to be merged back to the main branch and 
 git branch     # List all existing branches. The currently active branch will be marked with a star (*)
 git branch [branch-name]     # Create a new branch
 git switch [branch-name]     # Set another branch active and mark it with a star (*)
+git switch -c [branch-name]     # Will create and switch to the created branch
 git checkout     # Switch to another branch and check it out into your working directory
+git branch -d [branch-name]     # Will delete the branch
 
 git merge [branch]     # Will merge the active branch with the provided branch
 ```
@@ -61,6 +67,7 @@ git merge [branch]     # Will merge the active branch with the provided branch
 Examing logs, diffs and object information
 ```bash
 git log     # Will show all commits in the current active branch
+git log -p     # Will print all the changes made
 git log branchB..branchA     # Show all commits on branchA which are not on branchB
 git log --follow [file]     # Show the commits that changed file, even across renames
 
@@ -72,7 +79,8 @@ git show [SHA]     # Show any object in Git in human-readable format
 ## TRACKING CHANGES
 Versioning file removes and path changes
 ```bash
-git rm [file]     # Delete the file from project and stage the romal for commit
+git rm [file]     # Remove the file from project and stage the removal for commit. File bill not be tracked anymore
+git rm --cached [file]     # Remove the file from being tracked
 git mv [existing name] [new name]     # Change an existing file name
 git log --stat -M     # Show all commit logs with indication of any paths that moved
 ```
@@ -86,6 +94,15 @@ git merge [alias]/[branch]     # Merge a remote branch into your current branch 
 git push [alias] [branch]     # Transmit local branch commits to the remote repository branch
 
 git pull     # Fetch and merge any commits from the tracking remote branch
+```
+## Ignore file from being tracked in git
+Create a file called .gitignore in the main folder of the project
+The file should contain a list (incl. regex) of files which should be ignored by git
+for example:
+```bash
+# ignore all .log and .env files
+*.log
+*.env
 ```
 
 ## Passwordless authentication on Github
